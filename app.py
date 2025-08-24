@@ -12,8 +12,8 @@ if user_input:
     st.session_state.history.append(("user", user_input))
     response = requests.post("http://localhost:8000/echo", json={"text": user_input})
     reply = response.json()["reply"]
-    st.session_state.historyappend(("bot", reply))
+    st.session_state.history.append(("bot", reply))
 
 for role, msg in st.session_state.history:
-    with st.chat_message.role:
+    with st.chat_message(role):
         st.write(msg)
