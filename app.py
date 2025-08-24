@@ -17,4 +17,3 @@ if user_input:
 for role, msg in st.session_state.history:
     with st.chat_message.role:
         st.write(msg)
-        
