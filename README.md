@@ -1,4 +1,3 @@
 ### Start chat
 - Launch FastAPI: uvicorn main:app --reload
-- Launch Streamlit: streamlit run app.py
-- Open browser ``http://localhost:8501/``
+- Open browser ``http://127.0.0.1:8000/chat.html``

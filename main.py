@@ -9,10 +9,9 @@ app = FastAPI()
 app.mount("/static", StaticFiles(directory="static", html=True), name="static")
 
 
-# Allow frontend access
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Adjust for production
+    allow_origins=["*"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -21,5 +20,4 @@ app.add_middleware(
 async def chat(request: Request):
     data = await request.json()
     user_message = data.get("message", "")
-    # Simple echo logic
     return JSONResponse(content={"response": f"You said: {user_message}"})
