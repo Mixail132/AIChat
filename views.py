@@ -1,50 +1,35 @@
-from model import model
-import requests
 import os
+import requests
 from dotenv import load_dotenv
 
 load_dotenv()
-OPENAI_API_KEY = os.environ['OPENAI_API_KEY']
+GEMINI_API_KEY = os.environ['GEMINI_API_KEY']
 
 
-def get_gpt_answer(question):
+def get_gemini_answer(prompt):
     """
-    Gets the question and sends it directly to GPT
-    without a middleman server. (VPN is needed)
-    :param question:  the question text.
+    Gets the question and sends it directly to Gemini
+    without a middleman server. (VPN is needed ?)
+    :param prompt:  the question text.
     :return: the response from GPT.
     """
-    payload = {
-        'model': "gpt-3.5-turbo",
-        'temperature': 0.7,
-        'messages': [
-            {
-                "role": "user",
-                "content": question}]
-    }
-    url = 'https://api.openai.com/v1/chat/completions'
+    url = (
+        f"https://generativelanguage.googleapis.com/"
+        f"v1beta/models/gemini-2.0-flash:generateContent"
+    )
     headers = {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + OPENAI_API_KEY
+        "Content-Type": "application/json",
+        "X-goog-api-key": GEMINI_API_KEY
     }
+
+    payload = {"contents": [
+        {"parts": [{"text": f"{prompt}"}]}
+    ]}
+
     try:
         response = requests.post(url, json=payload, headers=headers)
         response_json = response.json()
-        answer = response_json['choices'][0]['message']['content']
+        answer = response_json["candidates"][0]["content"]["parts"][0]["text"]
         return answer
     except Exception as ex:
-        return f"There is no answer from 'gpt' model because of {ex}"
-
-
-def get_gemini_answer(question):
-    """
-    Gets the question and sends it directly to Gemnini
-    without a middleman server. (VPN is needed)
-    :param question: the question text.
-    :return: the response from Gemini.
-    """
-    response = model.generate_content(contents=[question])
-    try:
-        return response.text
-    except Exception as ex:
-        return f"{response.prompt_feedback} because of {ex}"
+        return f"There is no answer from 'gemini' model because of {ex}"

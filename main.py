@@ -1,8 +1,9 @@
+import uvicorn
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse, FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from views import get_gpt_answer, get_gemini_answer
+from views import get_gemini_answer
 
 app = FastAPI()
 
@@ -28,8 +29,13 @@ async def serve_home():
 async def chat(request: Request):
     data = await request.json()
     prompt = data.get("message", "")
-    response_1 = get_gemini_answer(prompt)
-    response_2 = get_gpt_answer(prompt)
-    return JSONResponse(content={
-        "response": f"{response_1} {response_2}"
-    })
+    response = get_gemini_answer(prompt)
+    return JSONResponse(content={"response": response})
+
+
+if __name__ == "__main__":
+    uvicorn.run(
+        "main:app",
+        host="127.0.0.1",
+        port=8000, reload=True
+    )
