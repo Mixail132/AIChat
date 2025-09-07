@@ -3,7 +3,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse, FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from views import get_gemini_answer
+from services.backend.views import get_gemini_answer
 
 app = FastAPI()
 
@@ -23,7 +23,7 @@ app.add_middleware(
 
 @app.get("/")
 async def serve_home():
-    return FileResponse("static/chat.html")
+    return FileResponse("../frontend/static/chat.html")
 
 @app.post("/chat")
 async def chat(request: Request):

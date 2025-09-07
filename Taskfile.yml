@@ -1,0 +1,20 @@
+version: "3"
+dotenv: [".env"]
+
+tasks:
+
+  docker-up:
+    desc: "Build and run the project containers."
+    cmds:
+      - docker compose up frontend backend -d --build
+
+  docker-down:
+    desc: "Stop and remove all the running containers."
+    cmds:
+      - docker compose down
+
+  docker-restart:
+    desc: "Restart all the running containers."
+    cmds:
+      - docker compose  stop
+      - docker compose  start
