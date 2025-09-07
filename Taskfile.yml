@@ -6,7 +6,7 @@ tasks:
   docker-up:
     desc: "Build and run the project containers."
     cmds:
-      - docker compose up frontend backend -d --build
+      - docker compose up backend -d --build
 
   docker-down:
     desc: "Stop and remove all the running containers."
