@@ -10,7 +10,7 @@ services:
     build:
       context: services/backend
     ports:
-      - "8006:8000"
+      - "8000:8000"
     volumes:
       - ./services/backend/:/app
     env_file:
@@ -26,7 +26,7 @@ services:
     container_name: aichat.frontend
     init: true
     ports:
-      - "3003:3000"
+      - "3000:3000"
     depends_on:
       - backend
     networks:

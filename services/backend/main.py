@@ -23,7 +23,7 @@ app.add_middleware(
 
 @app.get("/")
 async def serve_home():
-    return FileResponse("../frontend/static/chat.html")
+    return FileResponse("static/chat.html")
 
 @app.post("/chat")
 async def chat(request: Request):
