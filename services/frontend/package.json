@@ -1,0 +1,15 @@
+{
+  "name": "aichat-frontend",
+  "version": "1.0.0",
+  "description": "A simple frontend chat interface for FastAPI backend",
+  "main": "index.html",
+  "scripts": {
+  "start": "live-server",
+  "build": "echo 'No build step needed for static frontend'"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  }
+}

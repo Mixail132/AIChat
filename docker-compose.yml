@@ -25,6 +25,8 @@ services:
       description: "The frontend part of the project."
     container_name: aichat.frontend
     init: true
+    build:
+      context: services/frontend
     ports:
       - "3000:3000"
     depends_on:
